@@ -1,8 +1,48 @@
-body {
-  padding: 50px;
-  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100;300&display=swap");
+*,
+*:before,
+*:after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
-
+body {
+  font-family: "Noto Sans JP", sans-serif;
+}
+nav {
+  height: 10vh;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #000;
+  color: #fff;
+}
+.nav-logo {
+  margin-left: 30px;
+}
+.nav-links {
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  width: 30vw;
+  list-style-type: none;
+}
 a {
-  color: #00B7FF;
+  text-decoration: none;
+  color: #fff;
+}
+.home {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  width: 90vw;
+  margin: 50px auto 0 auto;
+  text-align: center;
+}
+.home-img {
+  width: 300px;
+  height: auto;
+}
+.home-text {
+  margin: 20px auto;
 }

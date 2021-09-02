@@ -1,5 +1,8 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  div(class='home')
+    img(class='home-img' src='images/tania-miron-6kyv4wazo80-unsplash.jpg' alt='shop items')
+    div(class='home-text')
+      h1 Welcome to #{title}
+      h2 Our carefully curated inventory includes !{data.item_count} popular items in !{data.category_count} categories from !{data.vendor_count} vendors.

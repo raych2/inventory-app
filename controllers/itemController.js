@@ -1,7 +1,29 @@
 const Item = require("../models/item");
+const Vendor = require("../models/vendor");
+const Category = require("../models/category");
+const async = require("async");
 
 exports.index = function (req, res) {
-  res.send("NOT IMPLEMENTED: Odin General Store Home Page");
+  async.parallel(
+    {
+      item_count: function (callback) {
+        Item.countDocuments({}, callback);
+      },
+      vendor_count: function (callback) {
+        Vendor.countDocuments({}, callback);
+      },
+      category_count: function (callback) {
+        Category.countDocuments({}, callback);
+      },
+    },
+    function (err, results) {
+      res.render("index", {
+        title: "Odin General Store",
+        error: err,
+        data: results,
+      });
+    }
+  );
 };
 
 // Display list of all items.
