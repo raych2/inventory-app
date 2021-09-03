@@ -1,18 +1,51 @@
 const Vendor = require("../models/vendor");
+const Item = require("../models/item");
+const async = require("async");
 
 // Display list of all Vendors.
 exports.vendor_list = function (req, res) {
   Vendor.find()
-    .sort([['name', 'ascending']])
+    .sort([["name", "ascending"]])
     .exec(function (err, list_vendors) {
-      if (err) { return next(err); }
-      res.render('vendor_list', { title: 'All Vendors', vendor_list: list_vendors });
+      if (err) {
+        return next(err);
+      }
+      res.render("vendor_list", {
+        title: "All Vendors",
+        vendor_list: list_vendors,
+      });
     });
 };
 
 // Display detail page for a specific Vendor.
-exports.vendor_detail = function (req, res) {
-  res.send("NOT IMPLEMENTED: Vendor detail: " + req.params.id);
+exports.vendor_detail = function (req, res, next) {
+  async.parallel(
+    {
+      vendor: function (callback) {
+        Vendor.findById(req.params.id).exec(callback);
+      },
+      vendors_items: function (callback) {
+        Item.find({ vendor: req.params.id }, "name price description").exec(
+          callback
+        );
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if (results.vendor == null) {
+        var err = new Error("Vendor not found");
+        err.status = 404;
+        return next(err);
+      }
+      res.render("vendor_detail", {
+        title: "Vendor Detail",
+        vendor: results.vendor,
+        vendor_items: results.vendors_items,
+      });
+    }
+  );
 };
 
 // Display Vendor create form on GET.

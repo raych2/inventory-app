@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  div(class='vendor-detail')
+    h1 All Items by #{vendor.name}
+
+    div(class='vendor-items')
+      each item in vendor_items
+        div(class='vendor-section')
+          a(href=item.url class='vendor-link') #{item.name}
+          p $#{item.price}
+          i #{item.description}
+
+      else
+        li This vendor has no items.
