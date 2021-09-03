@@ -48,11 +48,12 @@ nav {
 .home-text {
   margin: 20px auto;
 }
-.item-list, .vendor-list, .category-list {
+.item-list, .vendor-list, .category-list, .category-detail {
   margin: 50px auto 0 auto;
   display: flex;
   flex-flow: column wrap;
   align-content: center;
+  text-align: center;
 }
 .item-section, .vendor-section, .category-section {
   margin: 20px auto;

@@ -1,0 +1,14 @@
+extends layout
+
+block content
+  div(class='category-detail')
+    h1 All #{category.name} Items
+
+    div(class='category-items')
+      each item in category_items
+        div(class='category-section')
+          a(href=item.url class='category-link') #{item.name}
+          p $#{item.price}
+
+      else
+        li This category has no items.
