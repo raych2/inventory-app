@@ -28,7 +28,12 @@ exports.index = function (req, res) {
 
 // Display list of all items.
 exports.item_list = function (req, res) {
-  res.send("NOT IMPLEMENTED: Item list");
+  Item.find({}, "name price").exec(function (err, list_items) {
+    if (err) {
+      return next(err);
+    }
+    res.render("item_list", { title: "All Items", item_list: list_items });
+  });
 };
 
 // Display detail page for a specific item.
