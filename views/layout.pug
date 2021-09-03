@@ -5,13 +5,13 @@ html
     link(rel='stylesheet', href='/stylesheets/style.css')
   body
     nav
-      h1(class='nav-logo')
-        a(href='/') Odin General Store
-      ul(class='nav-links')
+      h1
+        a(href='/' class='nav-logo') Odin General Store
+      ul(class='nav-links-list')
         li
-          a(href='/items') Items
+          a(href='/items' class='nav-link') Items
         li
-          a(href='/vendors') Vendors
+          a(href='/vendors' class='nav-link') Vendors
         li
-          a(href='/categories') Categories
+          a(href='/categories' class='nav-link') Categories
     block content
