@@ -48,7 +48,7 @@ nav {
 .home-text {
   margin: 20px auto;
 }
-.item-list, .vendor-list, .category-list, .category-detail {
+.item-list, .vendor-list, .category-list, .category-detail, .item-detail {
   margin: 50px auto 0 auto;
   display: flex;
   flex-flow: column wrap;
@@ -61,4 +61,13 @@ nav {
 .item-link, .vendor-link, .category-link {
   text-decoration: none;
   color: #000;
+}
+.detail-section {
+  margin: 20px auto;
+}
+.item-vendor-section {
+  margin-bottom: 10px;
+}
+.item-category-section {
+  margin-bottom: 10px;
 }
