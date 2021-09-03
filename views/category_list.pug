@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  div(class='category-list')
+    h1= title
+
+    div(class='all-categories')
+      each category in category_list
+        div(class='category-section')
+          a(href=category.url class='category-link') #{category.name}
+
+      else
+        li There are no categories.
