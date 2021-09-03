@@ -6,7 +6,7 @@ const ItemSchema = new Schema({
   name: { type: String, maxLength: 100, required: true },
   vendor: { type: Schema.Types.ObjectId, ref: "Vendor", required: true },
   description: { type: String, maxLength: 500, required: true },
-  category: [{ type: Schema.Types.ObjectId, ref: "Category" }],
+  category: { type: Schema.Types.ObjectId, ref: "Category" },
   price: { type: Number, min: 0, max: 99999, required: true },
   inStock: { type: Number, min: 0, max: 1000, required: true },
 });
