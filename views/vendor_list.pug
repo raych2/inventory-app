@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  div(class='vendor-list')
+    h1= title
+
+    div(class='all-vendors')
+      each vendor in vendor_list
+        div(class='vendor-section')
+          a(href=vendor.url class='vendor-link') #{vendor.name}
+
+      else
+        li There are no vendors.

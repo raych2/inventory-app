@@ -2,7 +2,12 @@ const Vendor = require("../models/vendor");
 
 // Display list of all Vendors.
 exports.vendor_list = function (req, res) {
-  res.send("NOT IMPLEMENTED: Vendor list");
+  Vendor.find()
+    .sort([['name', 'ascending']])
+    .exec(function (err, list_vendors) {
+      if (err) { return next(err); }
+      res.render('vendor_list', { title: 'All Vendors', vendor_list: list_vendors });
+    });
 };
 
 // Display detail page for a specific Vendor.
