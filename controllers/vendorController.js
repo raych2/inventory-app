@@ -1,6 +1,7 @@
 const Vendor = require("../models/vendor");
 const Item = require("../models/item");
 const async = require("async");
+const { body, validationResult } = require("express-validator");
 
 // Display list of all Vendors.
 exports.vendor_list = function (req, res) {
@@ -35,7 +36,7 @@ exports.vendor_detail = function (req, res, next) {
         return next(err);
       }
       if (results.vendor == null) {
-        var err = new Error("Vendor not found");
+        const err = new Error("Vendor not found");
         err.status = 404;
         return next(err);
       }
@@ -50,13 +51,40 @@ exports.vendor_detail = function (req, res, next) {
 
 // Display Vendor create form on GET.
 exports.vendor_create_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: Vendor create GET");
+  res.render("vendor_form", { title: "Create Vendor" });
 };
 
 // Handle Vendor create on POST.
-exports.vendor_create_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: Vendor create POST");
-};
+exports.vendor_create_post = [
+  body("name", "Vendor name required").trim().isLength({ min: 1 }).escape(),
+  body("description", "Vendor description required")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      res.render("vendor_form", {
+        title: "Create Vendor",
+        vendor: req.body,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      const vendor = new Vendor({
+        name: req.body.name,
+        description: req.body.description,
+      });
+      vendor.save(function (err) {
+        if (err) {
+          return next(err);
+        }
+        res.redirect(vendor.url);
+      });
+    }
+  },
+];
 
 // Display Vendor delete form on GET.
 exports.vendor_delete_get = function (req, res) {
