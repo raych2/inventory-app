@@ -5,6 +5,7 @@ block content
     h1 All #{category.name} Items
 
     div(class='category-items')
+    p #{category.description}
       each item in category_items
         div(class='category-section')
           a(href=item.url class='category-link') #{item.name}
