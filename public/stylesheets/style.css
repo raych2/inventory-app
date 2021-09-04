@@ -48,21 +48,31 @@ nav {
 .home-text {
   margin: 20px auto;
 }
-.item-list, .vendor-list, .category-list, .category-detail, .item-detail, .vendor-detail {
+.item-list,
+.vendor-list,
+.category-list,
+.category-detail,
+.item-detail,
+.vendor-detail {
   margin: 50px auto 0 auto;
   display: flex;
   flex-flow: column wrap;
   align-content: center;
   text-align: center;
 }
-.item-section, .vendor-section, .category-section {
+.item-section,
+.vendor-section,
+.category-section {
   margin: 20px auto;
 }
-.item-link, .vendor-link, .category-link {
+.item-link,
+.vendor-link,
+.category-link {
   text-decoration: none;
   color: #000;
 }
-.detail-section, .vendor-section {
+.detail-section,
+.vendor-section {
   margin: 20px auto;
 }
 .item-vendor-section {
@@ -70,4 +80,40 @@ nav {
 }
 .item-category-section {
   margin-bottom: 10px;
+}
+.category-form {
+  margin: 50px auto 0 auto;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+}
+form {
+  width: 40vw;
+}
+#category-name,
+#category-description {
+  display: block;
+  width: 100%;
+  height: 40px;
+  margin: 10px auto;
+  font-size: 1em;
+  padding-left: 5px;
+}
+.form-buttons {
+  display: inline;
+}
+.back {
+  background-color: #adb5bd;
+  border-color: #adb5bd;
+}
+button,
+.submit {
+  margin-right: 10px;
+  padding: 10px;
+  text-align: center;
+  color: #fff;
+  background-color: #000;
+  border-color: #000;
+  border-radius: 3px;
+  font: 100 1rem "Noto Sans JP", sans-serif;
 }

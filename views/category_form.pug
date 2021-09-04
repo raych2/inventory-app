@@ -1,0 +1,21 @@
+extends layout
+
+block content
+  div(class='category-form')
+    h1 Add New Category
+    form(method='POST', action='')
+      div
+        label(for='name') Name:
+        input#category-name(type='text', name='name', required)
+      div
+        label(for='description') Description:
+        textarea#category-description(name='description', rows='5', cols='33', maxlength='250', required)
+      div(class='form-buttons')
+        input(class='submit', type='submit', value='Submit')
+        button(class='back', onclick="location.href='/categories'") Back to Categories
+    
+    if errors
+      ul
+       for error in errors
+         li!= error.msg
+
