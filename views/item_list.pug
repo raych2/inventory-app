@@ -3,7 +3,7 @@ extends layout
 block content
   div(class='item-list')
     h1= title
-
+    button(class='add-item' onclick="location.href='/item/create'") Add New Item
     div(class='all-items')
       each item in item_list
         div(class='item-section')

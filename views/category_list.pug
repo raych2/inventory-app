@@ -3,7 +3,7 @@ extends layout
 block content
   div(class='category-list')
     h1= title
-
+    button(class='add-category' onclick="location.href='/category/create'") Add New Category
     div(class='all-categories')
       each category in category_list
         div(class='category-section')

@@ -3,7 +3,7 @@ extends layout
 block content
   div(class='vendor-list')
     h1= title
-
+    button(class='add-vendor' onclick="location.href='/vendor/create'") Add New Vendor
     div(class='all-vendors')
       each vendor in vendor_list
         div(class='vendor-section')

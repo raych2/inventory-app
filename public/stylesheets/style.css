@@ -117,3 +117,6 @@ button,
   border-radius: 3px;
   font: 100 1rem "Noto Sans JP", sans-serif;
 }
+.add-category, .add-item, .add-vendor {
+  margin: 20px auto 0 auto;
+}
