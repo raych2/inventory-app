@@ -5,6 +5,7 @@ block content
     h1 All Items by #{vendor.name}
 
     div(class='vendor-items')
+    p #{vendor.description}
       each item in vendor_items
         div(class='vendor-section')
           a(href=item.url class='vendor-link') #{item.name}
