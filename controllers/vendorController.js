@@ -87,13 +87,64 @@ exports.vendor_create_post = [
 ];
 
 // Display Vendor delete form on GET.
-exports.vendor_delete_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: Vendor delete GET");
+exports.vendor_delete_get = function (req, res, next) {
+  async.parallel(
+    {
+      vendor: function (callback) {
+        Vendor.findById(req.params.id).exec(callback);
+      },
+      vendors_items: function (callback) {
+        Item.find({ vendor: req.params.id }).exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if (results.vendor == null) {
+        res.redirect("/vendors");
+      }
+      res.render("vendor_delete", {
+        title: "Delete Vendor",
+        vendor: results.vendor,
+        vendor_items: results.vendors_items,
+      });
+    }
+  );
 };
 
 // Handle Vendor delete on POST.
-exports.vendor_delete_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: Vendor delete POST");
+exports.vendor_delete_post = function (req, res, next) {
+  async.parallel(
+    {
+      vendor: function (callback) {
+        Vendor.findById(req.body.vendorid).exec(callback);
+      },
+      vendors_items: function (callback) {
+        Item.find({ vendor: req.body.vendorid }).exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if (results.vendors_items.length > 0) {
+        res.render("vendor_delete", {
+          title: "Delete Vendor",
+          vendor: results.vendor,
+          vendor_items: results.vendors_items,
+        });
+        return;
+      } else {
+        Vendor.findByIdAndRemove(req.body.vendorid, function deleteVendor(err) {
+          if (err) {
+            return next(err);
+          }
+          res.redirect("/vendors");
+        });
+      }
+    }
+  );
 };
 
 // Display Vendor update form on GET.

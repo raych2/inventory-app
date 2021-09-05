@@ -1,0 +1,27 @@
+extends layout
+
+block content
+  div(class='delete-vendor')
+    h1 #{title}: #{vendor.name}
+    p #{vendor.description}
+
+    if vendor_items.length
+      div(class='delete-msg')
+        p Delete the following items before attempting to delete this vendor.
+      div(class='vendor-items')
+      h4 Items
+        each item in vendor_items
+          div(class='vendor-section')
+            a(href=item.url class='vendor-link') #{item.name}
+            p $#{item.price}
+            i #{item.description}
+
+    else
+      div(class='delete-msg')
+        p Do you really want to delete this Vendor?
+
+      form(method='POST' action='')
+        div
+          input#vendorid(type='hidden',name='vendorid', required='true', value=vendor._id)
+        
+        button(class='delete-btn', type='submit') Delete

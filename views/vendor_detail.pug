@@ -3,6 +3,9 @@ extends layout
 block content
   div(class='vendor-detail')
     h1 All Items by #{vendor.name}
+    div(class='vendor-options')
+      p
+        a(class='delete' href=vendor.url+'/delete') Delete Vendor
 
     div(class='vendor-items')
     p #{vendor.description}
