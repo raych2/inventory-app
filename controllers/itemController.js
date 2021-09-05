@@ -2,6 +2,7 @@ const Item = require("../models/item");
 const Vendor = require("../models/vendor");
 const Category = require("../models/category");
 const async = require("async");
+const { body, validationResult } = require("express-validator");
 
 exports.index = function (req, res) {
   async.parallel(
@@ -58,14 +59,92 @@ exports.item_detail = function (req, res, next) {
 };
 
 // Display item create form on GET.
-exports.item_create_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: Item create GET");
+exports.item_create_get = function (req, res, next) {
+  async.parallel(
+    {
+      vendors: function (callback) {
+        Vendor.find(callback);
+      },
+      categories: function (callback) {
+        Category.find(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      res.render("item_form", {
+        title: "Create Item",
+        vendors: results.vendors,
+        categories: results.categories,
+      });
+    }
+  );
 };
 
 // Handle item create on POST.
-exports.item_create_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: Item create POST");
-};
+exports.item_create_post = [
+  body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
+  body("vendor", "Vendor must not be empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("description", "Description must not be empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("category", "Category must not be empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("price", "Price must not be empty").trim().escape(),
+  body("inStock", "Current number in stock must not be empty").trim().escape(),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const item = new Item({
+      name: req.body.name,
+      vendor: req.body.vendor,
+      description: req.body.description,
+      category: req.body.category,
+      price: req.body.price,
+      inStock: req.body.inStock,
+    });
+
+    if (!errors.isEmpty()) {
+      async.parallel(
+        {
+          vendors: function (callback) {
+            Vendor.find(callback);
+          },
+          categories: function (callback) {
+            Category.find(callback);
+          },
+        },
+        function (err, results) {
+          if (err) {
+            return next(err);
+          }
+          res.render("item_form", {
+            title: "Create Item",
+            vendors: results.vendors,
+            categories: results.categories,
+            item: item,
+            errors: errors.array(),
+          });
+        }
+      );
+      return;
+    } else {
+      item.save(function (err) {
+        if (err) {
+          return next(err);
+        }
+        res.redirect(item.url);
+      });
+    }
+  },
+];
 
 // Display item delete form on GET.
 exports.item_delete_get = function (req, res) {

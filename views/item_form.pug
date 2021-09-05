@@ -1,0 +1,45 @@
+extends layout
+
+block content
+  div(class='item-form')
+    h1 Add New Item
+    form(method='POST', action='')
+      div
+        label(for='item-name') Name:
+        input#item-name(type='text', name='name', required)
+      div
+        label(for='item-vendor') Vendor:
+        select#item-vendor(type='select', placeholder='Select vendor' name='vendor' required='true' )
+          - vendors.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+          for vendor in vendors
+            if item
+              option(value=vendor._id selected=(vendor._id.toString()===item.vendor._id.toString() ? 'selected' : false) ) #{vendor.name}
+            else
+              option(value=vendor._id) #{vendor.name}
+      div
+        label(for='item-description') Description:
+        textarea#item-description(name='description', rows='5', cols='33', maxlength='500', required)
+      div
+        label(for='item-category') Category:
+        select#item-category(type='select', placeholder='Select category' name='category' required='true' )
+          - categories.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+          for category in categories
+            if item
+              option(value=category._id selected=(category._id.toString()===item.category._id.toString() ? 'selected' : false) ) #{category.name}
+            else
+              option(value=category._id) #{category.name}
+      div(class='number-section')
+        div
+          label(for='item-price') Price:
+          input#item-price(type='number', name='price', required)
+        div
+          label(for='item-inStock') Current Stock:
+          input#item-stock(type='number', name='inStock', required)  
+      div(class='form-buttons')
+        input(class='submit', type='submit', value='Submit')
+        button(class='back', onclick="location.href='/items'") Back to Items
+    
+    if errors
+      ul
+       for error in errors
+         li!= error.msg
