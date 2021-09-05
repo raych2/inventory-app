@@ -5,10 +5,10 @@ block content
     h1 Add New Vendor
     form(method='POST', action='')
       div
-        label(for='name') Name:
+        label(for='vendor-name') Name:
         input#vendor-name(type='text', name='name', required)
       div
-        label(for='description') Description:
+        label(for='vendor-description') Description:
         textarea#vendor-description(name='description', rows='5', cols='33', maxlength='500', required)
       div(class='form-buttons')
         input(class='submit', type='submit', value='Submit')
