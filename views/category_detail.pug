@@ -3,6 +3,9 @@ extends layout
 block content
   div(class='category-detail')
     h1 All #{category.name} Items
+    div(class='category-options')
+      p
+        a(class='delete' href=category.url+'/delete') Delete Category
 
     div(class='category-items')
     p #{category.description}

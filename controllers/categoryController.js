@@ -99,13 +99,67 @@ exports.category_create_post = [
 ];
 
 // Display Category delete form on GET.
-exports.category_delete_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: Category delete GET");
+exports.category_delete_get = function (req, res, next) {
+  async.parallel(
+    {
+      category: function (callback) {
+        Category.findById(req.params.id).exec(callback);
+      },
+      categories_items: function (callback) {
+        Item.find({ category: req.params.id }).exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if (results.category == null) {
+        res.redirect("/categories");
+      }
+      res.render("category_delete", {
+        title: "Delete Category",
+        category: results.category,
+        category_items: results.categories_items,
+      });
+    }
+  );
 };
 
 // Handle Category delete on POST.
-exports.category_delete_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: Category delete POST");
+exports.category_delete_post = function (req, res, next) {
+  async.parallel(
+    {
+      category: function (callback) {
+        Category.findById(req.body.categoryid).exec(callback);
+      },
+      categories_items: function (callback) {
+        Item.find({ category: req.body.categoryid }).exec(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if (results.categories_items.length > 0) {
+        res.render("category_delete", {
+          title: "Delete Category",
+          category: results.category,
+          category_items: results.categories_items,
+        });
+        return;
+      } else {
+        Category.findByIdAndRemove(
+          req.body.categoryid,
+          function deleteCategory(err) {
+            if (err) {
+              return next(err);
+            }
+            res.redirect("/categories");
+          }
+        );
+      }
+    }
+  );
 };
 
 // Display Category update form on GET.
