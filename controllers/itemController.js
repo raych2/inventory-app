@@ -182,11 +182,102 @@ exports.item_delete_post = function (req, res, next) {
 };
 
 // Display item update form on GET.
-exports.item_update_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: Item update GET");
+exports.item_update_get = function (req, res, next) {
+  async.parallel(
+    {
+      item: function (callback) {
+        Item.findById(req.params.id)
+          .populate("vendor")
+          .populate("category")
+          .exec(callback);
+      },
+      vendors: function (callback) {
+        Vendor.find(callback);
+      },
+      categories: function (callback) {
+        Category.find(callback);
+      },
+    },
+    function (err, results) {
+      if (err) {
+        return next(err);
+      }
+      if (results.item == null) {
+        const err = new Error("Item not found");
+        err.status = 404;
+        return next(err);
+      }
+      res.render("item_form", {
+        title: "Update Item",
+        vendors: results.vendors,
+        categories: results.categories,
+        item: results.item,
+      });
+    }
+  );
 };
 
 // Handle item update on POST.
-exports.item_update_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: Item update POST");
-};
+exports.item_update_post = [
+  body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
+  body("vendor", "Vendor must not be empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("description", "Description must not be empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("category", "Category must not be empty.")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+  body("price", "Price must not be empty").trim().escape(),
+  body("inStock", "Current number in stock must not be empty").trim().escape(),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const item = new Item({
+      name: req.body.name,
+      vendor: req.body.vendor,
+      description: req.body.description,
+      category: req.body.category,
+      price: req.body.price,
+      inStock: req.body.inStock,
+      _id: req.params.id,
+    });
+
+    if (!errors.isEmpty()) {
+      async.parallel(
+        {
+          vendors: function (callback) {
+            Vendor.find(callback);
+          },
+          categories: function (callback) {
+            Category.find(callback);
+          },
+        },
+        function (err, results) {
+          if (err) {
+            return next(err);
+          }
+          res.render("item_form", {
+            title: "Update Item",
+            vendors: results.vendors,
+            categories: results.categories,
+            item: item,
+            errors: errors.array(),
+          });
+        }
+      );
+      return;
+    } else {
+      Item.findByIdAndUpdate(req.params.id, item, {}, function (err, theitem) {
+        if (err) {
+          return next(err);
+        }
+        res.redirect(theitem.url);
+      });
+    }
+  },
+];

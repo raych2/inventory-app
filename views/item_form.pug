@@ -2,23 +2,23 @@ extends layout
 
 block content
   div(class='item-form')
-    h1 Add New Item
+    h1= title
     form(method='POST', action='')
       div
         label(for='item-name') Name:
-        input#item-name(type='text', name='name', required)
+        input#item-name(type='text', name='name', value=(undefined===item ? '' : item.name), required)
       div
         label(for='item-vendor') Vendor:
         select#item-vendor(type='select', placeholder='Select vendor' name='vendor' required='true' )
           - vendors.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
           for vendor in vendors
             if item
-              option(value=vendor._id selected=(vendor._id.toString()===item.vendor._id.toString() ? 'selected' : false) ) #{vendor.name}
+              option(value=vendor._id selected=(vendor._id.toString()===item.vendor._id.toString() || vendor._id.toString()==item.vendor ? 'selected' : false) ) #{vendor.name}
             else
               option(value=vendor._id) #{vendor.name}
       div
         label(for='item-description') Description:
-        textarea#item-description(name='description', rows='5', cols='33', maxlength='500', required)
+        textarea#item-description(name='description', rows='5', cols='33', maxlength='500', required) #{item.description}
       div
         label(for='item-category') Category:
         select#item-category(type='select', placeholder='Select category' name='category' required='true' )
@@ -31,10 +31,10 @@ block content
       div(class='number-section')
         div
           label(for='item-price') Price:
-          input#item-price(type='number', name='price', required)
+          input#item-price(type='number', name='price', value=(undefined===item ? '' : item.price),required)
         div
           label(for='item-inStock') Current Stock:
-          input#item-stock(type='number', name='inStock', required)  
+          input#item-stock(type='number', name='inStock', value=(undefined===item ? '' : item.inStock),required)  
       div(class='form-buttons')
         input(class='submit', type='submit', value='Submit')
         button(class='back', onclick="location.href='/items'") Back to Items

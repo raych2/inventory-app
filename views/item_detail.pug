@@ -5,6 +5,8 @@ block content
     h1 #{item.name}
     div(class='item-options')
       p
+        a(class='update' href=item.url+'/update') Update Item
+      p
         a(class='delete' href=item.url+'/delete') Delete Item
     
     div(class='detail-section')

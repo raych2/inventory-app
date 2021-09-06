@@ -71,7 +71,8 @@ nav {
 .item-link,
 .vendor-link,
 .category-link,
-.delete {
+.delete,
+.update {
   text-decoration: none;
   color: #000;
 }
