@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  div(class='delete-item')
+    h1 #{title}: #{item.name}
+    div(class='item-section')
+      a(href=item.vendor.url class='vendor-link') #{item.vendor.name}
+      p $#{item.price}
+      i #{item.description}
+
+    div(class='delete-msg')
+      p Do you really want to delete this item?
+
+    form(method='POST' action='')
+      div
+        input#id(type='hidden',name='id', required='true', value=item._id)
+        
+      button(class='delete-btn', type='submit') Delete
