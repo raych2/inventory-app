@@ -2,14 +2,14 @@ extends layout
 
 block content
   div(class='vendor-form')
-    h1 Add New Vendor
+    h1= title
     form(method='POST', action='')
       div
         label(for='vendor-name') Name:
-        input#vendor-name(type='text', name='name', required)
+        input#vendor-name(type='text', name='name', value=(undefined===vendor ? '' : vendor.name), required)
       div
         label(for='vendor-description') Description:
-        textarea#vendor-description(name='description', rows='5', cols='33', maxlength='500', required)
+        textarea#vendor-description(name='description', rows='5', cols='33', maxlength='500', required) #{vendor.description}
       div(class='form-buttons')
         input(class='submit', type='submit', value='Submit')
         button(class='back', onclick="location.href='/vendors'") Back to Vendors

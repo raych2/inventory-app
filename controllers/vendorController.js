@@ -149,10 +149,53 @@ exports.vendor_delete_post = function (req, res, next) {
 
 // Display Vendor update form on GET.
 exports.vendor_update_get = function (req, res) {
-  res.send("NOT IMPLEMENTED: Vendor update GET");
+  Vendor.findById(req.params.id, function (err, vendor) {
+    if (err) {
+      return next(err);
+    }
+    if (vendor == null) {
+      const err = new Error("Vendor not found");
+      err.status = 404;
+      return next(err);
+    }
+    res.render("vendor_form", { title: "Update Vendor", vendor: vendor });
+  });
 };
 
 // Handle Vendor update on POST.
-exports.vendor_update_post = function (req, res) {
-  res.send("NOT IMPLEMENTED: Vendor update POST");
-};
+exports.vendor_update_post = [
+  body("name", "Vendor name required").trim().isLength({ min: 1 }).escape(),
+  body("description", "Vendor description required")
+    .trim()
+    .isLength({ min: 1 })
+    .escape(),
+
+  (req, res, next) => {
+    const errors = validationResult(req);
+    const vendor = new Vendor({
+      name: req.body.name,
+      description: req.body.description,
+      _id: req.params.id,
+    });
+    if (!errors.isEmpty()) {
+      res.render("vendor_form", {
+        title: "Update Vendor",
+        vendor: vendor,
+        errors: errors.array(),
+      });
+      return;
+    } else {
+      Vendor.findByIdAndUpdate(
+        req.params.id,
+        vendor,
+        {},
+        function (err, thevendor) {
+          if (err) {
+            return next(err);
+          }
+          res.redirect(thevendor.url);
+        }
+      );
+    }
+  },
+];

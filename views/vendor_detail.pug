@@ -5,6 +5,8 @@ block content
     h1 All Items by #{vendor.name}
     div(class='vendor-options')
       p
+        a(class='update' href=vendor.url+'/update') Update Vendor
+      p
         a(class='delete' href=vendor.url+'/delete') Delete Vendor
 
     div(class='vendor-items')
