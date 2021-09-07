@@ -5,6 +5,8 @@ block content
     h1 All #{category.name} Items
     div(class='category-options')
       p
+        a(class='update' href=category.url+'/update') Update Category
+      p
         a(class='delete' href=category.url+'/delete') Delete Category
 
     div(class='category-items')
