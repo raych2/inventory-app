@@ -9,7 +9,7 @@ block content
         input#category-name(type='text', name='name', value=(undefined===category ? '' : category.name), required)
       div
         label(for='category-description') Description:
-        textarea#category-description(name='description', rows='5', cols='33', maxlength='250', required) #{category.description}
+        textarea#category-description(name='description', rows='5', cols='33', maxlength='250', required)=(undefined===category ? '' : category.description)
       div(class='form-buttons')
         input(class='submit', type='submit', value='Submit')
         button(class='back', onclick="location.href='/categories'") Back to Categories

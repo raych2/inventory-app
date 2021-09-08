@@ -9,7 +9,7 @@ block content
         input#vendor-name(type='text', name='name', value=(undefined===vendor ? '' : vendor.name), required)
       div
         label(for='vendor-description') Description:
-        textarea#vendor-description(name='description', rows='5', cols='33', maxlength='500', required) #{vendor.description}
+        textarea#vendor-description(name='description', rows='5', cols='33', maxlength='500', required)=(undefined===vendor ? '' : vendor.description)
       div(class='form-buttons')
         input(class='submit', type='submit', value='Submit')
         button(class='back', onclick="location.href='/vendors'") Back to Vendors

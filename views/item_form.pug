@@ -18,7 +18,7 @@ block content
               option(value=vendor._id) #{vendor.name}
       div
         label(for='item-description') Description:
-        textarea#item-description(name='description', rows='5', cols='33', maxlength='500', required) #{item.description}
+        textarea#item-description(name='description', rows='5', cols='33', maxlength='500', required)=(undefined===item ? '' : item.description)
       div
         label(for='item-category') Category:
         select#item-category(type='select', placeholder='Select category' name='category' required='true' )
