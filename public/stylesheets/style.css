@@ -154,3 +154,11 @@ button,
 .delete-btn {
   margin: 20px auto;
 }
+.category-options, .vendor-options, .item-options {
+  display: flex;
+  flex-flow: row wrap;
+  width: 20vw;
+  margin: 10px auto;
+  justify-content: space-evenly;
+}
+
