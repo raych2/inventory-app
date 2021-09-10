@@ -3,6 +3,32 @@ const Vendor = require("../models/vendor");
 const Category = require("../models/category");
 const async = require("async");
 const { body, validationResult } = require("express-validator");
+const multer = require("multer");
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, "./public/uploads/");
+  },
+  filename: function (req, file, cb) {
+    cb(null, file.originalname);
+  },
+});
+
+function fileFilter(req, file, cb) {
+  const filetypes = /jpeg|jpg|png/;
+  const mimetype = filetypes.test(file.mimetype);
+  if (mimetype) {
+    return cb(null, true);
+  } else {
+    cb("Invalid file type.  Only jpeg, jpg, and png image files are allowed.");
+  }
+}
+
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 1024 * 1024 * 200 },
+  fileFilter: fileFilter,
+});
 
 exports.index = function (req, res) {
   async.parallel(
@@ -84,6 +110,8 @@ exports.item_create_get = function (req, res, next) {
 
 // Handle item create on POST.
 exports.item_create_post = [
+  upload.single("itemImage"),
+
   body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
   body("vendor", "Vendor must not be empty.")
     .trim()
@@ -109,6 +137,7 @@ exports.item_create_post = [
       category: req.body.category,
       price: req.body.price,
       inStock: req.body.inStock,
+      itemImage: req.file.filename,
     });
 
     if (!errors.isEmpty()) {
@@ -219,6 +248,8 @@ exports.item_update_get = function (req, res, next) {
 
 // Handle item update on POST.
 exports.item_update_post = [
+  upload.single("itemImage"),
+
   body("name", "Name must not be empty.").trim().isLength({ min: 1 }).escape(),
   body("vendor", "Vendor must not be empty.")
     .trim()
@@ -244,8 +275,14 @@ exports.item_update_post = [
       category: req.body.category,
       price: req.body.price,
       inStock: req.body.inStock,
+      itemImage: req.file,
       _id: req.params.id,
     });
+
+    if (req.file) {
+      const newImage = req.file.filename;
+      item.itemImage = newImage;
+    }
 
     if (!errors.isEmpty()) {
       async.parallel(

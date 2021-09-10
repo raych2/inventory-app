@@ -9,6 +9,7 @@ const ItemSchema = new Schema({
   category: { type: Schema.Types.ObjectId, ref: "Category" },
   price: { type: Number, min: 0, max: 99999, required: true },
   inStock: { type: Number, min: 0, max: 1000, required: true },
+  itemImage: { type: String, required: false },
 });
 
 // Virtual for item's URL

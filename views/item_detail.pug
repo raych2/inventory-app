@@ -10,6 +10,8 @@ block content
         a(class='delete' href=item.url+'/delete') Delete Item
     
     div(class='detail-section')
+      if item.itemImage
+        img(class='item-img' src='/uploads/'+item.itemImage alt=`${item.name}`)
       div(class='item-vendor-section')
         a(href=item.vendor.url class='vendor-link') #{item.vendor.name}
       div(class='item-category-section')

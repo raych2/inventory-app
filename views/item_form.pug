@@ -3,7 +3,7 @@ extends layout
 block content
   div(class='item-form')
     h1= title
-    form(method='POST', action='')
+    form(method='POST', action='' enctype='multipart/form-data')
       div
         label(for='item-name') Name:
         input#item-name(type='text', name='name', value=(undefined===item ? '' : item.name), required)
@@ -34,7 +34,10 @@ block content
           input#item-price(type='number', name='price', value=(undefined===item ? '' : item.price),required)
         div
           label(for='item-inStock') Current Stock:
-          input#item-stock(type='number', name='inStock', value=(undefined===item ? '' : item.inStock),required)  
+          input#item-stock(type='number', name='inStock', value=(undefined===item ? '' : item.inStock),required)
+      div
+        label(for='item-image') Add item image:
+        input#item-image(type='file', name='itemImage')      
       div(class='form-buttons')
         input(class='submit', type='submit', value='Submit')
         button(class='back', onclick="location.href='/items'") Back to Items
