@@ -45,6 +45,7 @@ nav {
 .item-img {
   width: 300px;
   height: auto;
+  border-radius: 3px;
 }
 .home-text {
   margin: 20px auto;
@@ -53,7 +54,6 @@ nav {
 .vendor-list,
 .category-list,
 .category-detail,
-.item-detail,
 .vendor-detail,
 .delete-vendor,
 .delete-category,
@@ -63,6 +63,13 @@ nav {
   flex-flow: column wrap;
   align-content: center;
   text-align: center;
+}
+.item-detail {
+  max-width: 50%;
+  margin: 50px auto 0 auto;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
 }
 .item-section,
 .vendor-section,
@@ -77,7 +84,12 @@ nav {
   text-decoration: none;
   color: #000;
 }
-.detail-section,
+.delete {
+  margin-left: 20px;
+}
+.detail-section {
+  margin: 0 auto 20px 20px;
+}
 .vendor-section {
   margin: 20px auto;
 }
@@ -124,6 +136,9 @@ form {
   border: 1px solid #000;
   border-radius: 3px;
 }
+#price, #description, #stock {
+  margin: 10px auto;
+}
 .form-buttons {
   display: inline;
 }
@@ -167,11 +182,16 @@ button,
   margin: 20px auto;
 }
 .category-options,
-.vendor-options,
-.item-options {
+.vendor-options {
   display: flex;
   flex-flow: row wrap;
   width: 20vw;
   margin: 10px auto;
   justify-content: space-evenly;
+}
+.item-options {
+  display: flex;
+  flex-flow: row nowrap;
+  margin: 10px auto 20px auto;
+  justify-content: flex-start;
 }
