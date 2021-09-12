@@ -7,16 +7,17 @@ block content
         img(class='item-img' src='/uploads/'+item.itemImage alt=`${item.name}`)
     div(class='detail-section')
       h1 #{item.name}
+      div(class='item-vendor-section')
+        a(href=item.vendor.url class='vendor-link') #{item.vendor.name}
+      p#price $#{item.price}
+      i#description #{item.description}
+      div(class='item-category-section')
+        a(href=item.category.url class='category-link') Category: #{item.category.name}
+      p#stock Current Stock: #{item.inStock}
+      hr
       div(class='item-options')
         p
           a(class='update' href=item.url+'/update') Update Item
         p
           a(class='delete' href=item.url+'/delete') Delete Item
-      div(class='item-vendor-section')
-        a(href=item.vendor.url class='vendor-link') #{item.vendor.name}
-      div(class='item-category-section')
-        a(href=item.category.url class='category-link') #{item.category.name}
-      p#price $#{item.price}
-      i#description #{item.description}
-      p#stock Current Stock: #{item.inStock}
       
