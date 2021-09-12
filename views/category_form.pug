@@ -12,7 +12,7 @@ block content
         textarea#category-description(name='description', rows='5', cols='33', maxlength='250', required)=(undefined===category ? '' : category.description)
       div(class='form-buttons')
         input(class='submit', type='submit', value='Submit')
-        button(class='back', onclick="location.href='/categories'") Back to Categories
+        button(class='back', type='button', onclick="location.href='/categories'") Back to Categories
     
     if errors
       ul
