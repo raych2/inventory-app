@@ -8,9 +8,10 @@ block content
         a(class='update' href=vendor.url+'/update') Update Vendor
       p
         a(class='delete' href=vendor.url+'/delete') Delete Vendor
-
+    hr
     div(class='vendor-items')
-    p #{vendor.description}
+    i #{vendor.description}
+    p
       each item in vendor_items
         div(class='vendor-section')
           a(href=item.url class='vendor-link') #{item.name}

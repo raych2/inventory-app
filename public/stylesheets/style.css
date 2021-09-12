@@ -71,14 +71,15 @@ nav {
   justify-content: center;
   gap: 30px;
 }
-.category-items {
+.category-items,
+.vendor-items {
   margin-top: 10px;
 }
-.item-section,
-.vendor-section{
+.item-section {
   margin: 20px auto;
 }
-.category-section {
+.category-section,
+.vendor-section {
   margin: 10px auto;
 }
 .item-link,
@@ -91,9 +92,6 @@ nav {
 }
 .delete {
   margin-left: 20px;
-}
-.vendor-section {
-  margin: 20px auto;
 }
 .item-vendor-section,
 .item-category-section {
