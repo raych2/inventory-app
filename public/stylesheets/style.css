@@ -71,10 +71,15 @@ nav {
   justify-content: center;
   gap: 30px;
 }
+.category-items {
+  margin-top: 10px;
+}
 .item-section,
-.vendor-section,
-.category-section {
+.vendor-section{
   margin: 20px auto;
+}
+.category-section {
+  margin: 10px auto;
 }
 .item-link,
 .vendor-link,
@@ -185,7 +190,6 @@ button,
 .vendor-options {
   display: flex;
   flex-flow: row wrap;
-  width: 20vw;
   margin: 10px auto;
   justify-content: space-evenly;
 }

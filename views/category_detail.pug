@@ -8,9 +8,10 @@ block content
         a(class='update' href=category.url+'/update') Update Category
       p
         a(class='delete' href=category.url+'/delete') Delete Category
-
+    hr
     div(class='category-items')
-    p #{category.description}
+    i #{category.description}
+    p
       each item in category_items
         div(class='category-section')
           a(href=item.url class='category-link') #{item.name}
