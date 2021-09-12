@@ -108,6 +108,13 @@ nav {
 form {
   width: 40vw;
 }
+input,
+select,
+textarea {
+  font-size: inherit;
+  font-weight: inherit;
+  font-family: inherit;
+}
 #category-name,
 #category-description,
 #vendor-name,
