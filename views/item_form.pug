@@ -37,7 +37,7 @@ block content
           input#item-stock(type='number', name='inStock', value=(undefined===item ? '' : item.inStock),required)
       div
         label(for='item-image') Add item image:
-        input#item-image(type='file', name='itemImage')      
+        input#item-image(type='file', name='itemImage', required)      
       div(class='form-buttons')
         input(class='submit', type='submit', value='Submit')
         button(class='back', onclick="location.href='/items'") Back to Items
