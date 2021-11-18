@@ -45,7 +45,7 @@ exports.index = function (req, res) {
     },
     function (err, results) {
       res.render("index", {
-        title: "Odin General Store",
+        title: "TOP General Store",
         error: err,
         data: results,
       });
